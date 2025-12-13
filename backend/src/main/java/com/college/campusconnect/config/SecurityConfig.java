@@ -36,7 +36,6 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/api/auth/**",
                                 "/api/public/**"
-                                // REMOVED: "/uploads/**" (Not needed for Cloudinary)
                         ).permitAll()
 
                         // User endpoints
@@ -58,11 +57,16 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // Allow your frontend URLs (Localhost + eventually Vercel)
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "http://localhost:8081", "http://localhost:3000"));
+      
+        configuration.addAllowedOriginPattern("*");
 
+        // 2. Allow ALL standard HTTP methods
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Cache-Control"));
+
+        // 3. Allow ALL headers (Authorization, Content-Type, etc.)
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+
+        // 4. Allow sending credentials (JWT tokens)
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
