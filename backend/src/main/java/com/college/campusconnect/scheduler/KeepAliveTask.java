@@ -9,7 +9,7 @@ import java.net.URL;
 public class KeepAliveTask {
 
     // Runs every 10 minutes (600,000 milliseconds)
-    @Scheduled(fixedRate = 600000)
+    @Scheduled(fixedRate = Long.MAX_VALUE)
     public void pingSelf() {
         try {
             // Replace with your actual Render backend URL
